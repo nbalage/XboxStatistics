@@ -13,13 +13,13 @@ namespace XboxStatistics
             Question("How many games have I completed?", HowManyGamesHaveICompleted);
             Question("How much Gamerscore do I have?", HowMuchGamescoreDoIHave);
             Question("How many days did I play?", HowManyDaysDidIPlay);
-            Question("Which game have I spent the most hours playing?", WhichGameHaveISpentTheMostHoursPlaying);
-            Question("In which game did I unlock my latest achievement?", InWhichGameDidIUnlockMyLatestAchievement);
-            Question("List all of my statistics in Binding of Isaac:", ListAllOfMyStatisticsInBindingOfIsaac);
-            Question("How many achievements did I earn per year?", HowManyAchievementsDidIEarnPerYear);
-            Question("List all of my games where I have earned a rare achievement", ListAllOfMyGamesWhereIHaveEarnedARareAchievement);
-            Question("List the top 3 games where I have earned the most rare achievements", ListTheTop3GamesWhereIHaveEarnedTheMostRareAchievements);
-            Question("Which is my rarest achievement?", WhichIsMyRarestAchievement);
+            //Question("Which game have I spent the most hours playing?", WhichGameHaveISpentTheMostHoursPlaying);
+            //Question("In which game did I unlock my latest achievement?", InWhichGameDidIUnlockMyLatestAchievement);
+            //Question("List all of my statistics in Binding of Isaac:", ListAllOfMyStatisticsInBindingOfIsaac);
+            //Question("How many achievements did I earn per year?", HowManyAchievementsDidIEarnPerYear);
+            //Question("List all of my games where I have earned a rare achievement", ListAllOfMyGamesWhereIHaveEarnedARareAchievement);
+            //Question("List the top 3 games where I have earned the most rare achievements", ListTheTop3GamesWhereIHaveEarnedTheMostRareAchievements);
+            //Question("Which is my rarest achievement?", WhichIsMyRarestAchievement);
 
             Console.ReadLine();
         }
@@ -33,18 +33,19 @@ namespace XboxStatistics
 
         static string HowManyGamesDoIHave()
         {
-            throw new NotImplementedException();
+            return Xbox.GameDetails.Count().ToString();
         }
 
         static string HowManyGamesHaveICompleted()
         {
             //HINT: you need to count the games where I reached the maximum Gamerscore
-            throw new NotImplementedException();
+            return Xbox.MyGames.Where(g => g.CurrentGamerscore == g.MaxGamerscore).Count().ToString();
         }
 
         static string HowManyDaysDidIPlay()
         {
             //HINT: there's a game stat property called MinutesPlayed, and as the name suggests it stored total minutes
+            //return Xbox.GameStats.Sum(s => s.Value.Sum())
             throw new NotImplementedException();
         }
 
@@ -56,7 +57,7 @@ namespace XboxStatistics
 
         static string HowMuchGamescoreDoIHave()
         {
-            throw new NotImplementedException();
+            return Xbox.MyGames.Sum(g => g.CurrentGamerscore).ToString() + "G";
         }
 
         static string InWhichGameDidIUnlockMyLatestAchievement()
