@@ -85,10 +85,10 @@ namespace XboxStatistics
                         on x.TitleId equals s.Key
                     select new 
                     {
-                        GameTitle = x,
-                        Stat = s
+                        GameTitle = x.Name,
+                        Stat = s.Value
                     };
-            return null; // isaacs.Aggregate("", (retval, stat) => retval += $"{stat.GameTitle.Name} = {stat.Stat.Value}");
+            return string.Join("\n", isaacs); // isaacs.Aggregate("", (retval, stat) => retval += $"{stat.GameTitle.Name} = {stat.Stat.Value}");
         }
 
         static string HowManyAchievementsDidIEarnPerYear()
@@ -114,20 +114,21 @@ namespace XboxStatistics
                             .SelectMany(a => a.TitleAssociations)
                             .Select(a => a.Name)
                             .Distinct();
-            return null;// games.Aggregate("", (retval, ach) => retval += $"{ach}\n");
+            return string.Join("\n", games);// games.Aggregate("", (retval, ach) => retval += $"{ach}\n");
         }
 
         static string ListTheTop3GamesWhereIHaveEarnedTheMostRareAchievements()
         {
             var games = Xbox.Achievements
                             .SelectMany(a => a.Value)
-                            .Where(r => r.Rarity.CurrentCategory == "Rare" && r.Rarity.CurrentPercentage > 0)
+                            .Where(r => r.Rarity.CurrentCategory == "Rare" && r.ProgressState == "Achieved" && r.Rarity.CurrentPercentage > 0)
                             .Select(s => new { Game = s.TitleAssociations[0].Name })
                             .GroupBy(s => s.Game)
                             .Select(a => new { Game = a, Count = a.Count() })
                             .OrderByDescending(a => a.Count)
+                            .Select(a => new { a = $"{a.Game.Key} ({a.Game.Key.Count()})" })
                             .Take(3);
-            return null;
+            return string.Join("\n", games);
         }
 
         static string WhichIsMyRarestAchievement()
