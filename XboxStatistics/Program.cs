@@ -21,7 +21,7 @@ namespace XboxStatistics
             Question("How many achievements did I earn per year?", HowManyAchievementsDidIEarnPerYear);
             Question("List all of my games where I have earned a rare achievement", ListAllOfMyGamesWhereIHaveEarnedARareAchievement);
             Question("List the top 3 games where I have earned the most rare achievements", ListTheTop3GamesWhereIHaveEarnedTheMostRareAchievements);
-            //Question("Which is my rarest achievement?", WhichIsMyRarestAchievement);
+            Question("Which is my rarest achievement?", WhichIsMyRarestAchievement);
 
             Console.ReadLine();
         }
@@ -133,7 +133,12 @@ namespace XboxStatistics
 
         static string WhichIsMyRarestAchievement()
         {
-            throw new NotImplementedException();
+            var ach = Xbox.Achievements
+                            .SelectMany(a => a.Value)
+                            .Where(r => r.Rarity.CurrentCategory == "Rare" && r.ProgressState == "Achieved" && r.Rarity.CurrentPercentage > 0)
+                            .OrderBy(r => r.Rarity.CurrentPercentage)
+                            .First();
+            return $"You are among the {ach.Rarity.CurrentPercentage} of gamers who earned the \"{ach.Name}\" achievement in Pinball FX3";
         }
     }
 }
