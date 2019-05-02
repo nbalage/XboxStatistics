@@ -15,7 +15,7 @@ namespace XboxStatistics
             Question("How many games have I completed?", HowManyGamesHaveICompleted);
             Question("How much Gamerscore do I have?", HowMuchGamescoreDoIHave);
             Question("How many days did I play?", HowManyDaysDidIPlay);
-            //Question("Which game have I spent the most hours playing?", WhichGameHaveISpentTheMostHoursPlaying);
+            Question("Which game have I spent the most hours playing?", WhichGameHaveISpentTheMostHoursPlaying);
             Question("In which game did I unlock my latest achievement?", InWhichGameDidIUnlockMyLatestAchievement);
             Question("List all of my statistics in Binding of Isaac:", ListAllOfMyStatisticsInBindingOfIsaac);
             Question("How many achievements did I earn per year?", HowManyAchievementsDidIEarnPerYear);
@@ -63,6 +63,26 @@ namespace XboxStatistics
             //            .Where(g => g.Name == "MinutesPlayed")
             //            .Where(g => g.Value != null)
             //            .
+            //var minutes = Xbox.GameStats.Values
+            //            .SelectMany(g => g)
+            //            .Where(g => g.Name == "MinutesPlayed")
+            //            .Where(g => g.Value != null)
+            //            .GroupBy(g => g.Value)
+            //            .OrderByDescending(g => g.Value);
+
+            //var minutes = (from g in (Xbox.GameStats.Values
+            //                            .SelectMany(g => g)
+            //                            .Where(g => g.Name == "MinutesPlayed")
+            //                            .Where(g => g.Value != null))
+            //               group g by g.Name into grouped
+            //               select new
+            //               {
+            //                   Name = grouped.Key,
+            //                   Count = grouped.Key.Count()
+            //               })
+            //               .OrderByDescending(g => g.Count)
+            //               .First();
+            //return $"{minutes.Name} -> {minutes.Count / 60} hours";
             throw new NotImplementedException();
         }
 
